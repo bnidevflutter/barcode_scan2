@@ -84,7 +84,26 @@ class BarcodeScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             }
         }
 
-        setContentView(scannerView)
+        val viewGroups = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        val frameLayout = FrameLayout(
+            this
+        )
+        frameLayout.layoutParams = viewGroups
+        val scanButton = Button(this)
+        val params = FrameLayout.LayoutParams(
+            WRAP_CONTENT, WRAP_CONTENT
+        )
+        scanButton.text = "Flash ON";
+        scanButton.setTextColor(Color.parseColor("#FFFFFF"))
+        scanButton.setBackgroundColor(Color.parseColor("#99000000"))
+        scanButton.setOnClickListener({
+            scannerView?.toggleFlash()
+        })
+        scanButton.layoutParams = params;
+        frameLayout.addView(scannerView);
+        frameLayout.addView(scanButton);
+
+        setContentView(frameLayout)
     }
 
     // region AppBar menu
